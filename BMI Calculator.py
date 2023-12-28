@@ -14,3 +14,13 @@ except ZeroDivisionError:
     print("Error: Height should be greater than zero.")
 except Exception as e:
     print(f"An unexpected error occurred: {e}")
+if rounded_BMI < 18.5:
+    print("You are under weight")
+elif rounded_BMI < 25:
+    print("You have a normal weight")
+elif rounded_BMI < 30:
+    print("You are slightly overweight")
+elif rounded_BMI < 35:
+    print("You are are obese")
+else:
+    print("You are clinicaly obese")
