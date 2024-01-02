@@ -11,13 +11,22 @@ while True:
         continue  # Restart the loop if there's an invalid input
 
     def encrypt(plainText, shiftAmount):
+        cypherText = ""
         for letter in plainText:
-            cypherText = ""
             position = alphabet.index(letter)
             newPosition = position + shiftAmount
             newLetter = alphabet[newPosition]
             cypherText += newLetter
         print(f"The encrypted text is: {cypherText}")
+
+    def decrypt(encryptedText, shiftAmount):
+        plainText = ""
+        for letter in encryptedText:
+            position = alphabet.index(letter)
+            newPosition = position - shiftAmount
+            plainText += alphabet[newPosition]
+        print(f"The encrypted text is: {plainText}")
+
     
     encrypt(plainText = text, shiftAmount = shift)
 
