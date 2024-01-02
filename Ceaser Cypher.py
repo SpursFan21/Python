@@ -10,28 +10,17 @@ while True:
         print(f"Invalid input: {e}")
         continue  # Restart the loop if there's an invalid input
 
-    def encrypt(plainText, shiftAmount):
-        cypherText = ""
-        for letter in plainText:
+    def ceaser(startText, shiftAmount, cypherDirection):
+        endText = ""
+        for letter in startText:
             position = alphabet.index(letter)
+            if cypherDirection == "decrypt":
+                shiftAmount *= -1
             newPosition = position + shiftAmount
-            newLetter = alphabet[newPosition]
-            cypherText += newLetter
-        print(f"The encrypted text is: {cypherText}")
+            endText += alphabet[newPosition]
+        print(f"{cypherDirection}d text is: {endText}")
 
-    def decrypt(encryptedText, shiftAmount):
-        plainText = ""
-        for letter in encryptedText:
-            position = alphabet.index(letter)
-            newPosition = position - shiftAmount
-            plainText += alphabet[newPosition]
-        print(f"The encrypted text is: {plainText}")
-
-    if direction == "encrypt":
-        encrypt(plainText = text, shiftAmount = shift)
-    else:
-        decrypt(encryptedText = text, shiftAmount = shift)
-    
+    ceaser(startText=text, shiftAmount=shift, cypherDirection=direction)
 
     user_choice = input("Do you want to encrypt or decrypt again? (yes/no): ").lower()
     if user_choice != 'yes':
