@@ -27,8 +27,11 @@ while True:
             plainText += alphabet[newPosition]
         print(f"The encrypted text is: {plainText}")
 
+    if direction == "encrypt":
+        encrypt(plainText = text, shiftAmount = shift)
+    else:
+        decrypt(encryptedText = text, shiftAmount = shift)
     
-    encrypt(plainText = text, shiftAmount = shift)
 
     user_choice = input("Do you want to encrypt or decrypt again? (yes/no): ").lower()
     if user_choice != 'yes':
