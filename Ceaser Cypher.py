@@ -4,21 +4,27 @@ while True:
 
     try:
         direction = str(input("Enter (encrypt or decrypt): ")).lower()
-        text = str(input("Enter your text: ")).lower()
-        shift = int(input("Enter a shift for the cypher(1-25): "))
+        text = str(input("Enter your message: ")).lower()
+        shift = int(input("Enter a shift for the cypher: "))
     except ValueError as e:
         print(f"Invalid input: {e}")
         continue  # Restart the loop if there's an invalid input
+    shift = shift % 26
 
     def ceaser(startText, shiftAmount, cypherDirection):
         endText = ""
         if cypherDirection == "decrypt":
             shiftAmount *= -1
-        for letter in startText:
-            position = alphabet.index(letter)
-            newPosition = position + shiftAmount
-            endText += alphabet[newPosition]
+        for char in startText:
+            if char in alphabet:
+                position = alphabet.index(char)
+                newPosition = position + shiftAmount
+                endText += alphabet[newPosition]
+            else:
+                endText += char
         print(f"{cypherDirection}d text is: {endText}")
+
+            
 
     ceaser(startText=text, shiftAmount=shift, cypherDirection=direction)
 
