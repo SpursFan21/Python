@@ -12,10 +12,10 @@ while True:
 
     def ceaser(startText, shiftAmount, cypherDirection):
         endText = ""
+        if cypherDirection == "decrypt":
+            shiftAmount *= -1
         for letter in startText:
             position = alphabet.index(letter)
-            if cypherDirection == "decrypt":
-                shiftAmount *= -1
             newPosition = position + shiftAmount
             endText += alphabet[newPosition]
         print(f"{cypherDirection}d text is: {endText}")
