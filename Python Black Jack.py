@@ -48,17 +48,22 @@ def computerCheck(computerScore):
         print(f"Dealer Busted! : {computerScore}")
         return 0
 
-while True:
-    userCards = []
-    computerCards = []
-    score = 0
-    computerScore = 0
+def setUp(logo, userCards, score, computerCards, computerScore):
     print(logo)
     print("Welcome to Duncan's Python Black Jack!")
     userPlay(userCards)
     checkScore(score)
     computerPlay(computerCards)
     computerCheck(computerScore)
+
+
+while True:
+    userCards = []
+    computerCards = []
+    score = 0
+    computerScore = 0
+
+    setUp(logo, userCards, score, computerCards, computerScore)
 
     score = sum([card[1] for card in userCards])
     while score < 21:
