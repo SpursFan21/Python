@@ -25,27 +25,40 @@ def computerPlay(computerCards):
     computerCards.append(drawCard(deck))
     computerCards.append(drawCard(deck))
     values = [card[1] for card in computerCards]
-    score = sum(values)
-    print(f"Dealer score is {score}")
+    computerScore = sum(values)
+    print(f"Dealer score is {computerScore}")
 
-def calculateWinner(userCards, computerCards):
-    if userCards <= 21 and computerCards >= 21:
+def calculateWinner(score, computerScore):
+    if score <= 21 and computerScore >= 21:
         print("You win!")
-    elif userCards > 21 and computerCards <= 21:
+    elif score > 21 and computerScore <= 21:
         print("Dealer wins!")
-    elif userCards == computerCards:
+    elif score == computerScore:
         print("It's a tie")
     else:
         print("calculation error")
+    
+def checkScore(score):
+    if score > 21:
+        print(f"You Busted! : {score}")
+        return 0
 
+def computerCheck(computerScore):
+    if computerScore > 21:
+        print(f"Dealer Busted! : {computerScore}")
+        return 0
 
 while True:
     userCards = []
     computerCards = []
-    
+    score = 0
+    computerScore = 0
     print(logo)
     print("Welcome to Duncan's Python Black Jack!")
     userPlay(userCards)
+    checkScore(score)
+    computerPlay(computerCards)
+    computerCheck(computerScore)
 
     score = sum([card[1] for card in userCards])
     while score < 21:
@@ -62,20 +75,13 @@ while True:
         else:
             break
 
-    print(f"You are holding at {score}")
-
-    if score > 21:
-        print("You busted, dealer wins")
-
-    computerPlay(computerCards)
-
     while sum([card[1] for card in computerCards]) <= 17:
         computerCards.append(drawCard(deck))
 
     computerScore = sum([card[1] for card in computerCards])
     print(f"Dealer scored a {computerScore}")
 
-    calculateWinner(userCards, computerCards)
+    calculateWinner(score, computerScore)
 
     user_choice = input("Do you want to play again? (yes/no): ").lower()
     if user_choice != 'yes':
