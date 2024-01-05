@@ -32,14 +32,18 @@ def computerPlay(computerCards):
     return computerScore
 
 def calculateWinner(score, computerScore):
-    if score <= 21 and computerScore > 21:
-        print("You win!")
+    if score > 21 and computerScore > 21:
+        print("Both busted. It's a tie!")
+    elif score <= 21 and computerScore > 21:
+        print("You win! Dealer busted.")
     elif score > 21 and computerScore <= 21:
-        print("Dealer wins!")
+        print("Dealer wins! You busted.")
     elif score == computerScore:
-        print("It's a tie")
+        print("It's a tie.")
+    elif score > computerScore:
+        print("You win! Your score is higher.")
     else:
-        print("calculation error")
+        print("Dealer wins! Dealer's score is higher.")
 
 def checkScore(score):
     userBust = False
@@ -76,6 +80,7 @@ def userHit(userCards, score):
             print(f"Your score is {score}")
         else:
             break
+    return score
 
 def computerCheck(computerScore):
     if computerScore > 21:
@@ -100,9 +105,9 @@ while True:
     computerCards = []
 
     score, userBust, computerScore, computerBust = setUp(logo, userCards, computerCards)
-    userHit(userCards, score)
+    score = userHit(userCards, score)
 
-    if not userBust:
+    if score <= 21 and score > computerScore:
         computerScore = computerHit(computerCards, computerScore, userBust)
 
     printGameState(userCards, score, computerCards, computerScore)
