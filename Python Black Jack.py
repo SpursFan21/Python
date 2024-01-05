@@ -22,17 +22,14 @@ def userPlay(userCards):
     print(f"Your total is {score}")
 
 def computerPlay(computerCards):
-    if computerScore < 17:
-        computerCards.append(drawCard(deck))
-        computerCards.append(drawCard(deck))
-        values = [card[1] for card in computerCards]
-        computerScore = sum(values)
-        print(f"Dealer score is {computerScore}")
-    else:
-        print(f"Dealer stays at {computerScore}")
+    computerCards.append(drawCard(deck))
+    computerCards.append(drawCard(deck))
+    values = [card[1] for card in computerCards]
+    computerScore = sum(values)
+    print(f"Dealer score is {computerScore}")
 
 def calculateWinner(score, computerScore):
-    if score <= 21 and computerScore >= 21:
+    if score <= 21 and computerScore > 21 and score > computerScore:
         print("You win!")
     elif score > 21 and computerScore <= 21:
         print("Dealer wins!")
@@ -40,6 +37,17 @@ def calculateWinner(score, computerScore):
         print("It's a tie")
     else:
         print("calculation error")
+
+def computerHit(computerCards, computerScore):
+    while computerScore < 17:
+        computerCards.append(drawCard(deck))
+        values = [card[2] for card in computerCards]
+        computerScore = sum(values)
+        if computerScore > 21:
+            print(f"Dealer Busted with {computerScore}")
+        else:
+            print(f"Dealer holds at {computerScore}")
+
     
 def checkScore(score):
     if score > 21:
