@@ -29,7 +29,7 @@ def computerPlay(computerCards):
     print(f"Dealer score is {computerScore}")
 
 def calculateWinner(score, computerScore):
-    if score <= 21 and computerScore > 21 and score > computerScore:
+    if score <= 21 and computerScore > 21:
         print("You win!")
     elif score > 21 and computerScore <= 21:
         print("Dealer wins!")
@@ -38,45 +38,28 @@ def calculateWinner(score, computerScore):
     else:
         print("calculation error")
 
-def computerHit(computerCards, computerScore):
-    while computerScore < 17:
-        computerCards.append(drawCard(deck))
-        values = [card[2] for card in computerCards]
-        computerScore = sum(values)
-        if computerScore > 21:
-            print(f"Dealer Busted with {computerScore}")
-        else:
-            print(f"Dealer holds at {computerScore}")
-
-    
 def checkScore(score):
+    userBust = False
     if score > 21:
+        userBust = True
         print(f"You Busted! : {score}")
-        return 0
+    return userBust
 
-def computerCheck(computerScore):
-    if computerScore > 21:
-        print(f"Dealer Busted! : {computerScore}")
-        return 0
+def computerHit(computerCards, computerScore, userBust):
+    if not userBust:
+        while computerScore < 17:
+            print("Dealer hits")
+            computerCards.append(drawCard(deck))
+            values = [card[1] for card in computerCards]
+            computerScore = sum(values)
+            if computerScore > 21:
+                print(f"Dealer Busted with {computerScore}")
+            else:
+                print(f"Dealer holds at {computerScore}")
+    else:
+        print("Dealer Wins!")
 
-def setUp(logo, userCards, score, computerCards, computerScore):
-    print(logo)
-    print("Welcome to Duncan's Python Black Jack!")
-    userPlay(userCards)
-    checkScore(score)
-    computerPlay(computerCards)
-    computerCheck(computerScore)
-
-
-while True:
-    userCards = []
-    computerCards = []
-    score = 0
-    computerScore = 0
-
-    setUp(logo, userCards, score, computerCards, computerScore)
-
-    score = sum([card[1] for card in userCards])
+def userHit(userCards, score):
     while score < 21:
         try:
             hit = str(input("Would you like to Hit or Stay? ")).lower()
@@ -91,11 +74,34 @@ while True:
         else:
             break
 
-    while sum([card[1] for card in computerCards]) <= 17:
-        computerCards.append(drawCard(deck))
+def computerCheck(computerScore):
+    if computerScore > 21:
+        print(f"Dealer Busted! : {computerScore}")
+        return True
 
-    computerScore = sum([card[1] for card in computerCards])
-    print(f"Dealer scored a {computerScore}")
+def setUp(logo, userCards, score, computerCards, computerScore):
+    print(logo)
+    print("Welcome to Duncan's Python Black Jack!")
+    userPlay(userCards)
+    checkScore(score)
+    computerPlay(computerCards)
+    computerCheck(computerScore)
+
+while True:
+    userCards = []
+    computerCards = []
+    score = 0
+    computerScore = 0
+
+    setUp(logo, userCards, score, computerCards, computerScore)
+    userHit(userCards, score)
+    userBust = checkScore(score)
+
+    if not userBust:
+        computerHit(computerCards, computerScore, userBust)
+
+    computerCheck(computerScore)
+    
 
     calculateWinner(score, computerScore)
 
