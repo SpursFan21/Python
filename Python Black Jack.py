@@ -11,25 +11,25 @@ logo = """
 """
 deck = {"Two" : 2, "Three" : 3, "Four" : 4, "Five" : 5, "Six" : 6, "Seven" : 7, "Eight" : 8, "Nine" : 9, "Ten" : 10, "Jack" : 10, "Queen" : 10, "King" : 10, "Ace" : 11, }
 
-def drawCard(deck, current_score):
+def drawCard(deck): 
     card = random.choice(list(deck.items()))
-    if card[0] == "Ace" and current_score + 11 > 21:
-        card = ("Ace", 1)
     return card
 
-def userPlay(userCards, score):
-    userCards.append(drawCard(deck, score))
-    userCards.append(drawCard(deck, score))
+def userPlay(userCards):
+    userCards.append(drawCard(deck))
+    userCards.append(drawCard(deck))
     values = [card[1] for card in userCards]
     score = sum(values)
     print(f"Your total is {score}")
+    return score
 
-def computerPlay(computerCards, computerScore):
-    computerCards.append(drawCard(deck, computerScore))
-    computerCards.append(drawCard(deck, computerScore))
+def computerPlay(computerCards):
+    computerCards.append(drawCard(deck))
+    computerCards.append(drawCard(deck))
     values = [card[1] for card in computerCards]
     computerScore = sum(values)
     print(f"Dealer score is {computerScore}")
+    return computerScore
 
 def calculateWinner(score, computerScore):
     if score <= 21 and computerScore > 21:
@@ -52,13 +52,14 @@ def computerHit(computerCards, computerScore, userBust):
     if not userBust:
         while computerScore < 17:
             print("Dealer hits")
-            computerCards.append(drawCard(deck, computerScore))
+            computerCards.append(drawCard(deck))
             values = [card[1] for card in computerCards]
             computerScore = sum(values)
             if computerScore > 21:
                 print(f"Dealer Busted with {computerScore}")
             else:
                 print(f"Dealer holds at {computerScore}")
+    return computerScore
 
 
 def userHit(userCards, score):
@@ -70,26 +71,25 @@ def userHit(userCards, score):
             continue
 
         if hit == "hit":
-            userCards.append(drawCard(deck, score))
+            userCards.append(drawCard(deck))
             score = sum([card[1] for card in userCards])
             print(f"Your score is {score}")
         else:
             break
-
 
 def computerCheck(computerScore):
     if computerScore > 21:
         print(f"Dealer Busted! : {computerScore}")
         return True
 
-def setUp(logo, userCards, score, computerCards, computerScore):
+def setUp(logo, userCards, computerCards):
     print(logo)
     print("Welcome to Duncan's Python Black Jack!")
-    userPlay(userCards, score)
-    checkScore(score)
-    computerPlay(computerCards, computerScore)
-    computerCheck(computerScore)
-
+    score = userPlay(userCards)
+    userBust = checkScore(score)
+    computerScore = computerPlay(computerCards)
+    computerBust = computerCheck(computerScore)
+    return score, userBust, computerScore, computerBust
 
 def printGameState(userCards, score, computerCards, computerScore):
     print(f"Your cards: {userCards} - Your score: {score}")
@@ -98,15 +98,12 @@ def printGameState(userCards, score, computerCards, computerScore):
 while True:
     userCards = []
     computerCards = []
-    score = 0
-    computerScore = 0
 
-    setUp(logo, userCards, score, computerCards, computerScore)
+    score, userBust, computerScore, computerBust = setUp(logo, userCards, computerCards)
     userHit(userCards, score)
-    userBust = checkScore(score)
 
     if not userBust:
-        computerHit(computerCards, computerScore, userBust)
+        computerScore = computerHit(computerCards, computerScore, userBust)
 
     printGameState(userCards, score, computerCards, computerScore)
     calculateWinner(score, computerScore)
