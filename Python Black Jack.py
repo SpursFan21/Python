@@ -22,11 +22,14 @@ def userPlay(userCards):
     print(f"Your total is {score}")
 
 def computerPlay(computerCards):
-    computerCards.append(drawCard(deck))
-    computerCards.append(drawCard(deck))
-    values = [card[1] for card in computerCards]
-    computerScore = sum(values)
-    print(f"Dealer score is {computerScore}")
+    if computerScore < 17:
+        computerCards.append(drawCard(deck))
+        computerCards.append(drawCard(deck))
+        values = [card[1] for card in computerCards]
+        computerScore = sum(values)
+        print(f"Dealer score is {computerScore}")
+    else:
+        print(f"Dealer stays at {computerScore}")
 
 def calculateWinner(score, computerScore):
     if score <= 21 and computerScore >= 21:
