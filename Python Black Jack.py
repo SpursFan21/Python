@@ -10,8 +10,11 @@ logo = """
       `------'                           |__/           
 """
 deck = {"Two" : 2, "Three" : 3, "Four" : 4, "Five" : 5, "Six" : 6, "Seven" : 7, "Eight" : 8, "Nine" : 9, "Ten" : 10, "Jack" : 10, "Queen" : 10, "King" : 10, "Ace" : 11, }
-def drawCard(deck):
+
+def drawCard(deck, current_score):
     card = random.choice(list(deck.items()))
+    if card[0] == "Ace" and current_score + 11 > 21:
+        card = ("Ace", 1)
     return card
 
 def userPlay(userCards):
@@ -49,15 +52,14 @@ def computerHit(computerCards, computerScore, userBust):
     if not userBust:
         while computerScore < 17:
             print("Dealer hits")
-            computerCards.append(drawCard(deck))
+            computerCards.append(drawCard(deck, computerScore))
             values = [card[1] for card in computerCards]
             computerScore = sum(values)
             if computerScore > 21:
                 print(f"Dealer Busted with {computerScore}")
             else:
                 print(f"Dealer holds at {computerScore}")
-    else:
-        print("Dealer Wins!")
+
 
 def userHit(userCards, score):
     while score < 21:
@@ -87,6 +89,10 @@ def setUp(logo, userCards, score, computerCards, computerScore):
     computerPlay(computerCards)
     computerCheck(computerScore)
 
+def printGameState(userCards, score, computerCards, computerScore):
+    print(f"Your cards: {userCards} - Your score: {score}")
+    print(f"Dealer's cards: {computerCards} - Dealer's score: {computerScore}")
+
 while True:
     userCards = []
     computerCards = []
@@ -100,9 +106,7 @@ while True:
     if not userBust:
         computerHit(computerCards, computerScore, userBust)
 
-    computerCheck(computerScore)
-    
-
+    printGameState(userCards, score, computerCards, computerScore)
     calculateWinner(score, computerScore)
 
     user_choice = input("Do you want to play again? (yes/no): ").lower()
