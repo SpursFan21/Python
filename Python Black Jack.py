@@ -17,16 +17,16 @@ def drawCard(deck, current_score):
         card = ("Ace", 1)
     return card
 
-def userPlay(userCards):
-    userCards.append(drawCard(deck))
-    userCards.append(drawCard(deck))
+def userPlay(userCards, score):
+    userCards.append(drawCard(deck, score))
+    userCards.append(drawCard(deck, score))
     values = [card[1] for card in userCards]
     score = sum(values)
     print(f"Your total is {score}")
 
-def computerPlay(computerCards):
-    computerCards.append(drawCard(deck))
-    computerCards.append(drawCard(deck))
+def computerPlay(computerCards, computerScore):
+    computerCards.append(drawCard(deck, computerScore))
+    computerCards.append(drawCard(deck, computerScore))
     values = [card[1] for card in computerCards]
     computerScore = sum(values)
     print(f"Dealer score is {computerScore}")
@@ -70,11 +70,12 @@ def userHit(userCards, score):
             continue
 
         if hit == "hit":
-            userCards.append(drawCard(deck))
+            userCards.append(drawCard(deck, score))
             score = sum([card[1] for card in userCards])
             print(f"Your score is {score}")
         else:
             break
+
 
 def computerCheck(computerScore):
     if computerScore > 21:
@@ -84,10 +85,11 @@ def computerCheck(computerScore):
 def setUp(logo, userCards, score, computerCards, computerScore):
     print(logo)
     print("Welcome to Duncan's Python Black Jack!")
-    userPlay(userCards)
+    userPlay(userCards, score)
     checkScore(score)
-    computerPlay(computerCards)
+    computerPlay(computerCards, computerScore)
     computerCheck(computerScore)
+
 
 def printGameState(userCards, score, computerCards, computerScore):
     print(f"Your cards: {userCards} - Your score: {score}")
