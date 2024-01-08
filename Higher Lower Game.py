@@ -69,4 +69,10 @@ def answer2(opTwo):
 def increment(opOne, opTwo):
     opOne += 1
     opTwo += 1
+    return opOne, opTwo
+
+def displayOps():
+    option1()
+    option2()
+
 
