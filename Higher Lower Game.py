@@ -77,11 +77,15 @@ def displayOps():
     print("\n")
     option2()
 
-def getWinner(opOne, opTwo):
-    if ("Box Office:", data[opOne]["boxOffice"]) > ("Box Office:", data[opTwo]["boxOffice"])
-        winner = ("Box Office:", data[opOne]["boxOffice"])
+def getWinner(opOne, opTwo):#calculate the greater box office sales for the winner 
+    box_office_op_one = data[opOne]["boxOffice"]
+    box_office_op_two = data[opTwo]["boxOffice"]
+
+    if box_office_op_one > box_office_op_two:
+        winner = box_office_op_one
     else:
-        winner = ("Box Office:", data[opTwo]["boxOffice"])
+        winner = box_office_op_two
+
     return winner
 
 
