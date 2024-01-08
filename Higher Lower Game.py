@@ -50,6 +50,7 @@ answer = ""
 box_office_op_one = ""
 box_office_op_two = ""
 opAnswer = 0
+ansIncrement = 0
 
 def option1(opOne):
     print("First Movie:")
@@ -73,10 +74,11 @@ def answer2(opTwo):
     print("Box Office:", data[opTwo]["boxOffice"])
     print("Year:", data[opTwo]["year"])
 
-def increment(opOne, opTwo):
+def increment(opOne, opTwo, ansIncrement):
     opOne += 1
     opTwo += 1
-    return opOne, opTwo
+    ansIncrement += 1
+    return opOne, opTwo, ansIncrement
 
 def displayOps(opOne, opTwo):
     print("Which movie do you think had higher box office sales?\n")
@@ -85,14 +87,10 @@ def displayOps(opOne, opTwo):
     option2(opTwo)
     print("\n")
 
-def takeAnswer(opOne, opTwo):
+def takeAnswer(ansIncrement):
     answer = input("Enter 1 for first movie and 2 for second movie: ")
-    if answer == 1:
-        opAnswer = opOne
-        return opAnswer
-    else:
-        opAnswer = opTwo
-        return opAnswer
+    answer += ansIncrement
+    return answer
 
 def getWinner(opOne, opTwo):
     box_office_op_one = data[opOne]["boxOffice"]
@@ -105,13 +103,13 @@ def getWinner(opOne, opTwo):
 
     return winner, box_office_op_one, box_office_op_two
 
-def calcAnswer(answer, winner, box_office_op_one, box_office_op_two, victory, score):#determin if user guessed correctly
-    if answer == 1 and winner == box_office_op_one:
+def calcAnswer(answer, winner, victory, score):#determin if user guessed correctly
+    if answer == opOne and winner == opOne:
         victory == True
         score += 1
         print("You guessed correct! it was movie A")
         return victory, score
-    elif answer == 2 and winner == box_office_op_two:
+    elif answer == opTwo and winner == opTwo:
         victory == True
         score += 1
         print("You guessed correct! it was movie B")
@@ -128,17 +126,20 @@ def displayAns(winner):
     answer2(opTwo)
 
 while True:
-    try:
-        print(logo)
-        displayOps(opOne, opTwo)
-        takeAnswer(opOne, opTwo)
-        getWinner(opOne, opTwo)
-        displayAns(winner)
-        calcAnswer(answer, winner, box_office_op_one, box_office_op_two, victory, score)
+    while opTwo < 8:
 
-    except ValueError as e:
-        print(f"Error: {e} try again")
-        continue
+        try:
+            print(logo)
+            displayOps(opOne, opTwo)
+            takeAnswer(ansIncrement)
+            getWinner(opOne, opTwo)
+            displayAns(winner)
+            calcAnswer(answer, winner, victory, score)
+            increment(opOne, opTwo, ansIncrement)
+
+        except ValueError as e:
+            print(f"Error: {e} try again")
+            continue
 
     user_choice = input("Do you want to play again? (yes/no): ").lower()
     if user_choice != 'yes':
