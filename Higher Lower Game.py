@@ -43,6 +43,8 @@ data = [
 
 opOne = 0
 opTwo = 1
+victory = True
+score = 0
 
 def option1(opOne):
     print("First Movie:")
@@ -71,11 +73,16 @@ def increment(opOne, opTwo):
     opTwo += 1
     return opOne, opTwo
 
-def displayOps():
+def displayOps(opOne, opTwo):
     print("Which movie do you think had higher box office sales?\n")
-    option1()
+    option1(opOne)
     print("\n")
-    option2()
+    option2(opTwo)
+
+def takeAnswer():
+    answer = input("Enter 1 for first movie and 2 fo second movie: ")
+    return answer
+
 
 def getWinner(opOne, opTwo):#calculate the greater box office sales for the winner 
     box_office_op_one = data[opOne]["boxOffice"]
@@ -86,7 +93,25 @@ def getWinner(opOne, opTwo):#calculate the greater box office sales for the winn
     else:
         winner = box_office_op_two
 
-    return winner
+    return winner, box_office_op_one, box_office_op_two
+
+def calcAnswer(answer, winner, box_office_op_one, box_office_op_two, victory, score):
+    if answer == 1 and winner == box_office_op_one:
+        victory == True
+        score += 1
+        print("You guessed correct! it was movie A")
+        return victory, score
+    elif answer == 2 and winner == box_office_op_two:
+        victory == True
+        score += 1
+        print("You guessed correct! it was movie B")
+        return victory, score
+    else:
+        victory == False
+        print("You guessed incorrect, better luck next time!")
+        return victory
+
+
 
 
 def displayAns(winner):
@@ -94,6 +119,22 @@ def displayAns(winner):
     answer1()
     print("\n")
     answer2()
+
+while True:
+    try:
+        displayOps(opOne, opTwo)
+        takeAnswer()
+        getWinner(opOne, opTwo)
+        displayAns(winner)
+        calcAnswer(answer, winner, box_office_op_one, box_office_op_two, victory, score)
+
+    except ValueError as e:
+        print(f"Error: {e} try again")
+        continue
+
+    user_choice = input("Do you want to play again? (yes/no): ").lower()
+    if user_choice != 'yes':
+        break
 
 
 
