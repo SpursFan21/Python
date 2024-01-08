@@ -45,6 +45,10 @@ opOne = 0
 opTwo = 1
 victory = True
 score = 0
+winner = ""
+answer = ""
+box_office_op_one = ""
+box_office_op_two = ""
 
 def option1(opOne):
     print("First Movie:")
