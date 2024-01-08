@@ -66,3 +66,7 @@ def answer2(opTwo):
     print("Box Office:", data[opTwo]["boxOffice"])
     print("Year:", data[opTwo]["year"])
 
+def increment(opOne, opTwo):
+    opOne += 1
+    opTwo += 1
+
