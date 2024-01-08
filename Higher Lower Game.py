@@ -49,6 +49,7 @@ winner = ""
 answer = ""
 box_office_op_one = ""
 box_office_op_two = ""
+opAnswer = 0
 
 def option1(opOne):
     print("First Movie:")
@@ -82,24 +83,29 @@ def displayOps(opOne, opTwo):
     option1(opOne)
     print("\n")
     option2(opTwo)
+    print("\n")
 
-def takeAnswer():
-    answer = input("Enter 1 for first movie and 2 fo second movie: ")
-    return answer
+def takeAnswer(opOne, opTwo):
+    answer = input("Enter 1 for first movie and 2 for second movie: ")
+    if answer == 1:
+        opAnswer = opOne
+        return opAnswer
+    else:
+        opAnswer = opTwo
+        return opAnswer
 
-
-def getWinner(opOne, opTwo):#calculate the greater box office sales for the winner 
+def getWinner(opOne, opTwo):
     box_office_op_one = data[opOne]["boxOffice"]
     box_office_op_two = data[opTwo]["boxOffice"]
 
     if box_office_op_one > box_office_op_two:
-        winner = box_office_op_one
+        winner = opOne
     else:
-        winner = box_office_op_two
+        winner = opTwo
 
     return winner, box_office_op_one, box_office_op_two
 
-def calcAnswer(answer, winner, box_office_op_one, box_office_op_two, victory, score):
+def calcAnswer(answer, winner, box_office_op_one, box_office_op_two, victory, score):#determin if user guessed correctly
     if answer == 1 and winner == box_office_op_one:
         victory == True
         score += 1
@@ -115,19 +121,17 @@ def calcAnswer(answer, winner, box_office_op_one, box_office_op_two, victory, sc
         print("You guessed incorrect, better luck next time!")
         return victory
 
-
-
-
 def displayAns(winner):
     print(f"{winner} had the higher box office\n")
-    answer1()
+    answer1(opOne)
     print("\n")
-    answer2()
+    answer2(opTwo)
 
 while True:
     try:
+        print(logo)
         displayOps(opOne, opTwo)
-        takeAnswer()
+        takeAnswer(opOne, opTwo)
         getWinner(opOne, opTwo)
         displayAns(winner)
         calcAnswer(answer, winner, box_office_op_one, box_office_op_two, victory, score)
