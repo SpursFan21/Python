@@ -77,6 +77,13 @@ def displayOps():
     print("\n")
     option2()
 
+def getWinner(opOne, opTwo):
+    if opOne > opTwo:
+        winner = opOne
+    else:
+        winner = opTwo
+    return winner
+
 def displayAns(winner):
     print{f"{winner} had the higher box office\n"}
     answer1()
