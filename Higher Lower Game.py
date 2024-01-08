@@ -72,7 +72,17 @@ def increment(opOne, opTwo):
     return opOne, opTwo
 
 def displayOps():
+    print("Which movie do you think had higher box office sales?\n")
     option1()
+    print("\n")
     option2()
+
+def displayAns(winner):
+    print{f"{winner} had the higher box office\n"}
+    answer1()
+    print("\n")
+    answer2()
+
+
 
 
