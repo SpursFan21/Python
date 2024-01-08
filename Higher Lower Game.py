@@ -78,14 +78,15 @@ def displayOps():
     option2()
 
 def getWinner(opOne, opTwo):
-    if opOne > opTwo:
-        winner = opOne
+    if ("Box Office:", data[opOne]["boxOffice"]) > ("Box Office:", data[opTwo]["boxOffice"])
+        winner = ("Box Office:", data[opOne]["boxOffice"])
     else:
-        winner = opTwo
+        winner = ("Box Office:", data[opTwo]["boxOffice"])
     return winner
 
+
 def displayAns(winner):
-    print{f"{winner} had the higher box office\n"}
+    print(f"{winner} had the higher box office\n")
     answer1()
     print("\n")
     answer2()
