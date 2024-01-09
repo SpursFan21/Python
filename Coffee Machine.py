@@ -15,19 +15,22 @@ recipe = [
         "drink": "espresso",
         "water": 50,
         "milk": 0,
-        "coffee": 18
+        "coffee": 18,
+        "cost": .50
     },
     {
         "drink": "latte",
         "water": 200,
         "milk": 150,
-        "coffee": 24   
+        "coffee": 24, 
+        "cost": .85        
     },
     {
         "drink": "cappuccino",
         "water": 250,
         "milk": 100,
-        "coffee": 24         
+        "coffee": 24,
+        "cost": 1.10       
     }
 ]
 
