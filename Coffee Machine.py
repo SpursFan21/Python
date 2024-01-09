@@ -106,7 +106,7 @@ def makeCoffee(create, selection):
         print(f"Please take your {recipe[selection]['drink']}")
     else:
         print("Something went wrong, here is your change back")
-    exitLoop = True  # Add this line to modify the global exitLoop variable
+    exitLoop = True 
 
 while True:
     print(logo)
@@ -118,7 +118,7 @@ while True:
         makeCoffee(create, selection)
 
         if exitLoop:
-            break  # exit the while opTwo loop
+            break
 
     except ValueError as e:
             print(f"Error: {e} try again")
@@ -128,7 +128,6 @@ while True:
     if user_choice == 'yes':
         break
     elif user_choice == 'no':
-    # Continue with the next iteration of the loop
         continue
     else:
         print("Invalid input. Please enter 'yes' or 'no'.")
