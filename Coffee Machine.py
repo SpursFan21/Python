@@ -12,6 +12,7 @@ coffee = 100
 selection = 0
 exitLoop = False
 create = False
+changeTendered = 0
 
 recipe = [
     {
@@ -115,6 +116,16 @@ def processPayment(selection, changeTendered):
         print("A payment error has occured")
         exitLoop = True
         return exitLoop
+    
+def makeCoffee(create, selection):
+    if create == True:
+        print(f"Please take your {recipe[selection]["drink"]}")
+    else:
+        print("Something went wrong, here is your change back")
+    exitLoop = True
+    return exitLoop
+        
+
 
         
 
@@ -126,11 +137,9 @@ while True:
         order(water, milk, coffee)
         checkResources(selection)
         getCost(selection)
-        processCoins()
-
-
-
-
+        processCoins(selection, changeTendered)
+        makeCoffee(create, selection)
+        
         if exitLoop:
             break  # exit the while opTwo loop
 
