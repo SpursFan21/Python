@@ -88,7 +88,7 @@ def displayOps(opOne, opTwo):
     print("\n")
 
 def takeAnswer(ansIncrement):
-    answer = input("Enter 1 for first movie and 2 for second movie: ")
+    answer = int(input("Enter 1 for first movie and 2 for second movie: "))
     answer += ansIncrement
     return answer
 
@@ -105,17 +105,17 @@ def getWinner(opOne, opTwo):
 
 def calcAnswer(answer, winner, victory, score):#determin if user guessed correctly
     if answer == opOne and winner == opOne:
-        victory == True
+        victory = True
         score += 1
         print("You guessed correct! it was movie A")
         return victory, score
     elif answer == opTwo and winner == opTwo:
-        victory == True
+        victory = True
         score += 1
         print("You guessed correct! it was movie B")
         return victory, score
     else:
-        victory == False
+        victory = False
         print("You guessed incorrect, better luck next time!")
         return victory
 
@@ -127,15 +127,15 @@ def displayAns(winner):
 
 while True:
     while opTwo < 8:
-
         try:
             print(logo)
             displayOps(opOne, opTwo)
-            takeAnswer(ansIncrement)
-            getWinner(opOne, opTwo)
-            displayAns(winner)
-            calcAnswer(answer, winner, victory, score)
-            increment(opOne, opTwo, ansIncrement)
+            answer = takeAnswer(ansIncrement)
+            winner, _, _ = getWinner(opOne, opTwo)
+            displayAns(data[winner]["title"])
+            victory, score = calcAnswer(answer, winner, victory, score)
+            print(f"Your score is {score}")
+            opOne, opTwo, ansIncrement = increment(opOne, opTwo, ansIncrement)
 
         except ValueError as e:
             print(f"Error: {e} try again")
@@ -144,7 +144,3 @@ while True:
     user_choice = input("Do you want to play again? (yes/no): ").lower()
     if user_choice != 'yes':
         break
-
-
-
-
