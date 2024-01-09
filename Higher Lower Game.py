@@ -74,11 +74,20 @@ def answer2(opTwo):
     print("Box Office:", data[opTwo]["boxOffice"])
     print("Year:", data[opTwo]["year"])
 
-def increment(opOne, opTwo, ansIncrement):
-    opOne += 1
-    opTwo += 1
-    ansIncrement += 1
+def increment(opOne, opTwo, ansIncrement, winner):
+    if winner == opOne:
+        opTwo += 1
+        ansIncrement += 1
+    elif winner == opTwo:
+        opOne += 2
+        ansIncrement += 1
+    else:
+        opOne += 1
+        opTwo += 1
+        ansIncrement += 1
+
     return opOne, opTwo, ansIncrement
+
 
 def displayOps(opOne, opTwo):
     print("Which movie do you think had higher box office sales?\n")
