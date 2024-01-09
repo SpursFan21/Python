@@ -104,19 +104,16 @@ def getWinner(opOne, opTwo):
     return winner, box_office_op_one, box_office_op_two
 
 def calcAnswer(answer, winner, victory, score):
-    if answer == opOne and winner == opOne:
+    if answer == (winner + 1):
         victory = True
         score += 1
         print("You guessed correct! It was movie A")
-    elif answer == opTwo and winner == opTwo:
-        victory = True
-        score += 1
-        print("You guessed correct! It was movie B")
     else:
         victory = False
         print("You guessed incorrect, better luck next time!")
 
     return victory, score, not victory  # indicate that the loop should continue if the answer is incorrect
+
 
 
 def displayAns(winner):
@@ -127,9 +124,9 @@ def displayAns(winner):
     print("\n")
 
 while True:
-    while opTwo < 8:
+    print(logo)
+    while opTwo < 6:
         try:
-            print(logo)
             displayOps(opOne, opTwo)
             answer = takeAnswer(ansIncrement)
             winner, _, _ = getWinner(opOne, opTwo)
@@ -147,9 +144,13 @@ while True:
 
     user_choice = input("Do you want to play again? (yes/no): ").lower()
     if user_choice == 'yes':
-        opOne = 0
+        opOne = 0 # reset variables if user wants to play again
         opTwo = 1
         victory = True
         score = 0
         ansIncrement = 0 
+        break
+    # Check if the user answered all questions correctly
+    if score == opTwo:
+        print("Congratulations! You answered all questions correctly. You won the game!")
         break
