@@ -56,20 +56,19 @@ def order(water, milk, coffee):
 def checkResources(selection):
     if selection == 0:
         if recipe[selection]["water"] >= 50 and recipe[selection]["milk"] >= 0 and recipe[selection]["coffee"] >= 18:
-            print(f"Your selection of {recipe[selection]["drink"]} is available")
+            print(f"Your selection of {recipe[selection]['drink']} is available")
         else:
-            print(f"Your selection of {recipe[selection]["drink"]} is not available do to lack of resource")
-    if selection == 1:
+            print(f"Your selection of {recipe[selection]['drink']} is not available due to a lack of resources")
+    elif selection == 1:
         if recipe[selection]["water"] >= 200 and recipe[selection]["milk"] >= 150 and recipe[selection]["coffee"] >= 24:
-            print(f"Your selection of {recipe[selection]["drink"]} is available")
+            print(f"Your selection of {recipe[selection]['drink']} is available")
         else:
-            print(f"Your selection of {recipe[selection]["drink"]} is not available do to lack of resource")
-    if selection == 2:
+            print(f"Your selection of {recipe[selection]['drink']} is not available due to a lack of resources")
+    elif selection == 2:
         if recipe[selection]["water"] >= 250 and recipe[selection]["milk"] >= 100 and recipe[selection]["coffee"] >= 24:
-            print(f"Your selection of {recipe[selection]["drink"]} is available")
+            print(f"Your selection of {recipe[selection]['drink']} is available")
         else:
-            print(f"Your selection of {recipe[selection]["drink"]} is not available do to lack of resource")
-
+            print(f"Your selection of {recipe[selection]['drink']} is not available due to a lack of resources")
 
 def getCost(selection):
     print("Coffee Type:", recipe[selection]["drink"])
@@ -107,7 +106,7 @@ def makeCoffee(create, selection):
         print(f"Please take your {recipe[selection]['drink']}")
     else:
         print("Something went wrong, here is your change back")
-    exitLoop = True
+    exitLoop = True  # Add this line to modify the global exitLoop variable
 
 while True:
     print(logo)
