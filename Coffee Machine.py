@@ -127,4 +127,11 @@ while True:
     user_choice = input("Do you want to order again? (yes/no): ").lower()
     if user_choice == 'yes':
         break
+    elif user_choice == 'no':
+    # Continue with the next iteration of the loop
+        continue
+    else:
+        print("Invalid input. Please enter 'yes' or 'no'.")
+        break
+
 
