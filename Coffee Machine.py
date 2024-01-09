@@ -48,11 +48,15 @@ def order(water, milk, coffee):
     selection = int(input("Press 1 for Espresso, 2 for Latte, 3 for Cappuccino, 4 for report: "))
     if 1 <= selection <= 3:
         selection -= 1
-        return selection
-    else:
+        return selection, exitLoop
+    elif selection == 4:
         printReport(water, milk, coffee)
         exitLoop = True
-        return exitLoop
+        return None, exitLoop
+    else:
+        printReport("Invalid choice")
+        exitLoop = True
+        return None, exitLoop
 
 def checkResources(selection):
     if selection == 0:
@@ -91,6 +95,7 @@ def processPayment(selection, changeTendered):
         print("Payment successful!")
         print(f"Change: {change}")
         create = True
+        return create
     elif change < 0:
         print("Payment incomplete")
         print(f"Remaining balance: {change}")
@@ -100,6 +105,7 @@ def processPayment(selection, changeTendered):
     else:
         print("A payment error has occurred")
         exitLoop = True
+        return exitLoop
     
 def makeCoffee(create, selection):
     global exitLoop  # Declare as global to modify its value
@@ -111,34 +117,32 @@ def makeCoffee(create, selection):
 
 while True:
     print(logo)
-    try:
-        selection = order(water, milk, coffee)
+    while exitLoop == False:
 
-        # Check if the user selected the report option
-        if selection == 3:
-            continue  # Skip the rest of the loop and start from the beginning
+        try:
+            selection, exitLoop = order(water, milk, coffee)
+            if exitLoop:
+                break  # Exit the inner while loop if exitLoop is True
 
-        checkResources(selection)
-        getCost(selection)
-        processCoins()
-        processPayment(selection, changeTendered)
-        makeCoffee(create, selection)
+            checkResources(selection)
+            getCost(selection)
+            processCoins()
+            processPayment(selection, changeTendered)
+            makeCoffee(create, selection)
 
-        if exitLoop:
-            break
-
-    except ValueError as e:
-        print(f"Error: {e} try again")
-        continue
+        except ValueError as e:
+            print(f"Error: {e} try again")
+            continue
 
     user_choice = input("Do you want to order again? (yes/no): ").lower()
     if user_choice == 'yes':
-        continue  # Start a new iteration of the while loop
+        continue  # Start a new iteration of the outer while loop
     elif user_choice == 'no':
         break
     else:
         print("Invalid input. Please enter 'yes' or 'no'.")
         break
+
 
 
 
