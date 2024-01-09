@@ -69,7 +69,7 @@ def answer1(opOne):
     print("Year:", data[opOne]["year"])
 
 def answer2(opTwo):
-    print("First Movie:")
+    print("Second Movie:")
     print("Title:", data[opTwo]["title"])
     print("Box Office:", data[opTwo]["boxOffice"])
     print("Year:", data[opTwo]["year"])
@@ -103,27 +103,28 @@ def getWinner(opOne, opTwo):
 
     return winner, box_office_op_one, box_office_op_two
 
-def calcAnswer(answer, winner, victory, score):#determin if user guessed correctly
+def calcAnswer(answer, winner, victory, score):
     if answer == opOne and winner == opOne:
         victory = True
         score += 1
-        print("You guessed correct! it was movie A")
-        return victory, score
+        print("You guessed correct! It was movie A")
     elif answer == opTwo and winner == opTwo:
         victory = True
         score += 1
-        print("You guessed correct! it was movie B")
-        return victory, score
+        print("You guessed correct! It was movie B")
     else:
         victory = False
         print("You guessed incorrect, better luck next time!")
-        return victory
+
+    return victory, score, not victory  # indicate that the loop should continue if the answer is incorrect
+
 
 def displayAns(winner):
-    print(f"{winner} had the higher box office\n")
+    print(f"\n{winner} had the higher box office\n")
     answer1(opOne)
     print("\n")
     answer2(opTwo)
+    print("\n")
 
 while True:
     while opTwo < 8:
@@ -133,14 +134,22 @@ while True:
             answer = takeAnswer(ansIncrement)
             winner, _, _ = getWinner(opOne, opTwo)
             displayAns(data[winner]["title"])
-            victory, score = calcAnswer(answer, winner, victory, score)
+            victory, score, exit_loop = calcAnswer(answer, winner, victory, score)
             print(f"Your score is {score}")
             opOne, opTwo, ansIncrement = increment(opOne, opTwo, ansIncrement)
+
+            if exit_loop:
+                break  # exit the while opTwo loop
 
         except ValueError as e:
             print(f"Error: {e} try again")
             continue
 
     user_choice = input("Do you want to play again? (yes/no): ").lower()
-    if user_choice != 'yes':
+    if user_choice == 'yes':
+        opOne = 0
+        opTwo = 1
+        victory = True
+        score = 0
+        ansIncrement = 0 
         break
