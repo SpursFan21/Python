@@ -44,9 +44,9 @@ def printReport(water, milk, coffee):
     print(f"There is {coffee} g of coffee")
 
 def order(water, milk, coffee):
-    selection = input("Press 1 for Espresso, 2 for Latte or 3 for Cappuccino")
-    if selection < 4:
-        selection - 1
+    selection = int(input("Press 1 for Espresso, 2 for Latte, or 3 for Cappuccino: "))
+    if 1 <= selection <= 3:
+        selection -= 1
         return selection
     else:
         printReport(water, milk, coffee)
@@ -76,60 +76,38 @@ def getCost(selection):
     print("Cost:", recipe[selection]["cost"])
 
 def processCoins():
+    global changeTendered  # Declare as global to modify its value
     quarters = int(input("Enter Quarters: "))
     dimes = int(input("Enter Dimes: "))
     nickles = int(input("Enter Nickles: "))
     pennys = int(input("Enter Pennys: "))
-    changeTendered = float((quarters * .25) + (dimes * .1) + (nickles * .05) + pennys)
-    return changeTendered
+    changeTendered = float((quarters * 0.25) + (dimes * 0.1) + (nickles * 0.05) + pennys)
 
 def processPayment(selection, changeTendered):
+    global exitLoop  # Declare as global to modify its value
     cost = recipe[selection]["cost"]
     change = changeTendered - cost
     if change >= 0:
-        print("Payment sucseful!")
-        print(f"{change} is your change")
+        print("Payment successful!")
+        print(f"Change: {change}")
         create = True
-        return create
     elif change < 0:
         print("Payment incomplete")
-        print(f"{change}")
+        print(f"Remaining balance: {change}")
         cost = change
         processCoins()
         processPayment(selection, changeTendered)
-            if change >= 0:
-                print("Payment sucseful!")
-                print(f"{change} is your change")
-                create = True
-                return create
-            elif change < 0:
-                print("Payment incomplete")
-                print(f"{change}")
-                cost = change
-                processCoins()
-                processPayment(selection, changeTendered)
-            else:
-                print("To many attemps")
-                exitLoop = True
-                return exitLoop
     else:
-        print("A payment error has occured")
+        print("A payment error has occurred")
         exitLoop = True
-        return exitLoop
     
 def makeCoffee(create, selection):
-    if create == True:
-        print(f"Please take your {recipe[selection]["drink"]}")
+    global exitLoop  # Declare as global to modify its value
+    if create:
+        print(f"Please take your {recipe[selection]['drink']}")
     else:
         print("Something went wrong, here is your change back")
     exitLoop = True
-    return exitLoop
-        
-
-
-        
-
-
 
 while True:
     print(logo)
@@ -139,7 +117,7 @@ while True:
         getCost(selection)
         processCoins(selection, changeTendered)
         makeCoffee(create, selection)
-        
+
         if exitLoop:
             break  # exit the while opTwo loop
 
