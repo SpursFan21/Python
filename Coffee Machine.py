@@ -44,7 +44,8 @@ def printReport(water, milk, coffee):
     print(f"There is {coffee} g of coffee")
 
 def order(water, milk, coffee):
-    selection = int(input("Press 1 for Espresso, 2 for Latte, or 3 for Cappuccino: "))
+    global exitLoop
+    selection = int(input("Press 1 for Espresso, 2 for Latte, 3 for Cappuccino, 4 for report: "))
     if 1 <= selection <= 3:
         selection -= 1
         return selection
@@ -111,26 +112,33 @@ def makeCoffee(create, selection):
 while True:
     print(logo)
     try:
-        order(water, milk, coffee)
+        selection = order(water, milk, coffee)
+
+        # Check if the user selected the report option
+        if selection == 3:
+            continue  # Skip the rest of the loop and start from the beginning
+
         checkResources(selection)
         getCost(selection)
-        processCoins(selection, changeTendered)
+        processCoins()
+        processPayment(selection, changeTendered)
         makeCoffee(create, selection)
 
         if exitLoop:
             break
 
     except ValueError as e:
-            print(f"Error: {e} try again")
-            continue
+        print(f"Error: {e} try again")
+        continue
 
     user_choice = input("Do you want to order again? (yes/no): ").lower()
     if user_choice == 'yes':
-        break
+        continue  # Start a new iteration of the while loop
     elif user_choice == 'no':
-        continue
+        break
     else:
         print("Invalid input. Please enter 'yes' or 'no'.")
         break
+
 
 
