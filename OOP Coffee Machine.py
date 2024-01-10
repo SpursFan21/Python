@@ -111,6 +111,11 @@ while True:
             continue
 
     user_choice = input("Do you want to order again? (yes/no): ").lower()
-    if user_choice != 'yes':
-        print("Invalid input. Please enter 'yes' to continue ordering or any other key to exit.")
+    if user_choice == 'yes':
+        # Reset the exitLoop attribute for the next order
+        coffee_machine.exitLoop = False
+        continue  # Start a new iteration of the outer while loop
+    elif user_choice == 'no':
         break
+    else:
+        print("Invalid input. Please enter 'yes' or 'no'.")
