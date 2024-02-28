@@ -6,7 +6,7 @@ while True:
         secondNumber = float(input(f"Enter the number you want to {command} : "))
     except ValueError as e:
         print(f"Invalid input: {e}")
-        continue  # Restart the loop if there's an invalid input
+        continue
     
     result = 0
     
