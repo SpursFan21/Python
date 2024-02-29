@@ -3,7 +3,13 @@ def check_odd_or_even(number):
         return "Even"
     else:
         return "Odd"
+    
 print("Welcome To Duncan's Odd or Even checker")
-number = int(input("Enter a number: "))
+try:
+    number = int(input("Enter a number: "))
+except ValueError as e:
+    print(f"Error {e}")
+    
 result = check_odd_or_even(number)
+
 print(f"The number {number} is {result}.")
