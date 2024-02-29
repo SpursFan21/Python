@@ -1,4 +1,4 @@
-def check_odd_or_even(number):
+def check(number):
     if number % 2 == 0:
         return "Even"
     else:
@@ -10,6 +10,6 @@ try:
 except ValueError as e:
     print(f"Error {e}")
     
-result = check_odd_or_even(number)
+result = check(number)
 
 print(f"The number {number} is {result}.")
