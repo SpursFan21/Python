@@ -55,7 +55,7 @@ if __name__ == "__main__":
             elif command == 2:
                 Commands.DisplayAvgAge(students)
             elif command == 3:
-                print("Total number of enrolled students:", len(students))
+                Commands.DisplayTotalStudents(students)
             elif command == 4:
                 print("Exiting the program...")
                 break
