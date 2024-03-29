@@ -18,7 +18,7 @@ class CSVFileManage:
     def csvTemp():
         with open("CSV/weather_data.csv") as data_file:
             data = csv.reader(data_file)
-            temperatures = []
+            temperatures = []#this is a new list to hold the temps i will extract from the CSV file
             for row in data:
                 if row[1] != "temp": #this allows me to only display on data element from all the rows
                     temperatures.append(int(row[1]))
