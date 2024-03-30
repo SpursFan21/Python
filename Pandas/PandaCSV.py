@@ -1,5 +1,4 @@
 import pandas
-import math
 
 class CSVFileManager:
     def read():
