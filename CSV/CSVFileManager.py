@@ -1,5 +1,4 @@
 import csv
-
 class CSVFileManage:
     @staticmethod
     def readFile():
