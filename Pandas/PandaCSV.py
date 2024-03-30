@@ -1,4 +1,5 @@
 import pandas
+import math
 
 class CSVFileManager:
     def read():
@@ -31,16 +32,7 @@ class CSVFileManager:
     @staticmethod    
     def average():
         data = pandas.read_csv("./CSV/weather_data.csv")
-        data_list = data["temp"].to_list()#Converts data column to List
-        print("\n")
-        print(data_list)
-        print("\n")
-        total = sum(data_list)
-        count = len(data_list)
-        if count == 0:
-            return 0  # Handle the case where the list is empty to avoid division by zero
-        averageTemp = total / count
-        print(f" thet average temp is {averageTemp}")
+        print(data["temp"].mean())
     
 if __name__ == "__main__":
     while True:
