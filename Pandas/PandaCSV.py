@@ -52,10 +52,18 @@ class CSVFileManager:
         monday_temp = monday.temp[0]# this gets the temp for the monday row
         monday_temp_fahrenheit = ((monday_temp * 9) / 5) + 32 #celsius to fahrenheit conversion
         print("\n The temp on monday will be ", monday_temp, " degrees in Celsius\n and in Fahrenheit it will be ", monday_temp_fahrenheit, " degrees")
+        
+    def createDataFrame():
+        data_dict = {
+            "Students" : ["Duncan", "Albie", "Sean"],
+            "Scores" : [100, 95, 70]
+        }
+        data = pandas.DataFrame(data_dict)
+        data.to_csv("new_data.csv")
     
 if __name__ == "__main__":
     while True:
-        choice = int(input("\nEnter 1 to read, 2 to view temp column, 3 to check data type, 4 to convert the data to a dictionary, 5 to convert data column to list,\n 6 to find the average of the list, 7 to find the maximum value of list, 8 to view an induvidual row, 9 to get element for row, 10 to convert monday temp to fahrenhiet, and 11 to exit: "))
+        choice = int(input("\nEnter 1 to read, 2 to view temp column, 3 to check data type, 4 to convert the data to a dictionary, 5 to convert data column to list, 6 to find the average of the list,\n 7 to find the maximum value of list, 8 to view an induvidual row, 9 to get element for row, 10 to convert monday temp to fahrenhiet, 11 to create new data frame, and 12 to exit: "))
         if choice == 1:
             CSVFileManager.read()
         elif choice == 2:
@@ -77,6 +85,8 @@ if __name__ == "__main__":
         elif choice == 10:
             CSVFileManager.getDayTempConvertToCelsius()
         elif choice == 11:
+            CSVFileManager.createDataFrame()
+        elif choice == 12:
             print("program shutting down.......")
             break
         else:
