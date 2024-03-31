@@ -5,7 +5,7 @@ class CSVFileManager:
         data = pandas.read_csv("./CSV/weather_data.csv")
         print(data)
     
-    def getColumn():# this is how easy it is to get just get one row extracted from csv with pandas
+    def getColumn():# this is how easy it is to get just get one column extracted from csv with pandas
         data = pandas.read_csv("./CSV/weather_data.csv")
         print(data["temp"])
     
@@ -35,10 +35,15 @@ class CSVFileManager:
     def maxVal():
         data = pandas.read_csv("./CSV/weather_data.csv")
         print(data["temp"].max())
+        
+    def getRow():
+        data = pandas.read_csv("./CSV/weather_data.csv") 
+        print("\n")
+        print(data[data.day == "Tuesday"])#this method allows me to pull the data from a single row 
     
 if __name__ == "__main__":
     while True:
-        choice = int(input("\nEnter 1 to read, 2 to view temp column, 3 to check data type, 4 to convert the data to a dictionary,\n 5 to convert data column to list, 6 to find the average of the list, 7 to find the maximum value of list and 8 to exit: "))
+        choice = int(input("\nEnter 1 to read, 2 to view temp column, 3 to check data type, 4 to convert the data to a dictionary, 5 to convert data column to list,\n 6 to find the average of the list, 7 to find the maximum value of list, 8 to view an induvidual row, and 9 to exit: "))
         if choice == 1:
             CSVFileManager.read()
         elif choice == 2:
@@ -54,6 +59,8 @@ if __name__ == "__main__":
         elif choice == 7:
             CSVFileManager.maxVal()
         elif choice == 8:
+            CSVFileManager.getRow()
+        elif choice == 9:
             print("program shutting down.......")
             break
         else:
