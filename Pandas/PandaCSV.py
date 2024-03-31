@@ -28,14 +28,17 @@ class CSVFileManager:
         print(data_list)
         print("\n")
     
-    @staticmethod    
     def average():
         data = pandas.read_csv("./CSV/weather_data.csv")
         print(data["temp"].mean())
+        
+    def maxVal():
+        data = pandas.read_csv("./CSV/weather_data.csv")
+        print(data["temp"].max())
     
 if __name__ == "__main__":
     while True:
-        choice = int(input("Enter 1 to read, 2 to view temp column, 3 to check data type, 4 to convert the data to a dictionary,\n 5 to convert data column to list, 6 to find the average of the list, and 7 to exit: "))
+        choice = int(input("\nEnter 1 to read, 2 to view temp column, 3 to check data type, 4 to convert the data to a dictionary,\n 5 to convert data column to list, 6 to find the average of the list, 7 to find the maximum value of list and 8 to exit: "))
         if choice == 1:
             CSVFileManager.read()
         elif choice == 2:
@@ -49,6 +52,8 @@ if __name__ == "__main__":
         elif choice == 6:        
             CSVFileManager.average()
         elif choice == 7:
+            CSVFileManager.maxVal()
+        elif choice == 8:
             print("program shutting down.......")
             break
         else:
