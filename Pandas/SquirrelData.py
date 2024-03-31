@@ -15,10 +15,9 @@ class CSVManager:
             if color == "Cinnamon":
                 cinnamon_squirrel +=1
 
-        squirrelFurColorCounts = {# storing data in dict
-            "Gray" : [gray_squirrel],
-            "Black" : [black_squirrel],
-            "Cinnamon" : [cinnamon_squirrel]
+        squirrelFurColorCounts = {# storing results in dict
+            "Fur Color" : ["Gray", "Black", "Cinnamon"],
+            "Count" : [gray_squirrel, black_squirrel, cinnamon_squirrel],
         }
         
         data_dict = pandas.DataFrame(squirrelFurColorCounts)# sending results to new CSV
