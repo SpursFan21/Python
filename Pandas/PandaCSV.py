@@ -37,13 +37,18 @@ class CSVFileManager:
         print(data[data.temp == (data.temp.max())])# this finds the max temp and then prints the row it is in
         
     def getRow():
-        data = pandas.read_csv("./CSV/weather_data.csv") 
+        data = pandas.read_csv("./CSV/weather_data.csv")
         print("\n")
-        print(data[data.day == "Tuesday"])#this method allows me to pull the data from a single row 
+        print(data[data.day == "Tuesday"])#this method allows me to pull the data from a single row
+    
+    def getElementForRow():
+         data = pandas.read_csv("./CSV/weather_data.csv")
+         monday = data[data.day == "Monday"]# this allows me to find a specific data element for a row
+         print("\nOn Monday it will be ", monday.condition)
     
 if __name__ == "__main__":
     while True:
-        choice = int(input("\nEnter 1 to read, 2 to view temp column, 3 to check data type, 4 to convert the data to a dictionary, 5 to convert data column to list,\n 6 to find the average of the list, 7 to find the maximum value of list, 8 to view an induvidual row, and 9 to exit: "))
+        choice = int(input("\nEnter 1 to read, 2 to view temp column, 3 to check data type, 4 to convert the data to a dictionary, 5 to convert data column to list,\n 6 to find the average of the list, 7 to find the maximum value of list, 8 to view an induvidual row, 9 to get element for row, and 10 to exit: "))
         if choice == 1:
             CSVFileManager.read()
         elif choice == 2:
@@ -61,6 +66,8 @@ if __name__ == "__main__":
         elif choice == 8:
             CSVFileManager.getRow()
         elif choice == 9:
+            CSVFileManager.getElementForRow()
+        elif choice == 10:
             print("program shutting down.......")
             break
         else:
