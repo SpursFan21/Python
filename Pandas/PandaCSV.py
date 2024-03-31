@@ -32,9 +32,9 @@ class CSVFileManager:
         data = pandas.read_csv("./CSV/weather_data.csv")
         print(data["temp"].mean())
         
-    def maxVal():
+    def maxValRow():
         data = pandas.read_csv("./CSV/weather_data.csv")
-        print(data["temp"].max())
+        print(data[data.temp == (data.temp.max())])# this finds the max temp and then prints the row it is in
         
     def getRow():
         data = pandas.read_csv("./CSV/weather_data.csv") 
@@ -57,7 +57,7 @@ if __name__ == "__main__":
         elif choice == 6:        
             CSVFileManager.average()
         elif choice == 7:
-            CSVFileManager.maxVal()
+            CSVFileManager.maxValRow()
         elif choice == 8:
             CSVFileManager.getRow()
         elif choice == 9:
