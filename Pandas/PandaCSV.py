@@ -45,10 +45,17 @@ class CSVFileManager:
          data = pandas.read_csv("./CSV/weather_data.csv")
          monday = data[data.day == "Monday"]# this allows me to find a specific data element for a row
          print("\nOn Monday it will be ", monday.condition)
+         
+    def getDayTempConvertToCelsius():
+        data = pandas.read_csv("./CSV/weather_data.csv")
+        monday = data[data.day == "Monday"]
+        monday_temp = monday.temp[0]# this gets the temp for the monday row
+        monday_temp_fahrenheit = ((monday_temp * 9) / 5) + 32 #celsius to fahrenheit conversion
+        print("\n The temp on monday will be ", monday_temp, " degrees in Celsius\n and in Fahrenheit it will be ", monday_temp_fahrenheit, " degrees")
     
 if __name__ == "__main__":
     while True:
-        choice = int(input("\nEnter 1 to read, 2 to view temp column, 3 to check data type, 4 to convert the data to a dictionary, 5 to convert data column to list,\n 6 to find the average of the list, 7 to find the maximum value of list, 8 to view an induvidual row, 9 to get element for row, and 10 to exit: "))
+        choice = int(input("\nEnter 1 to read, 2 to view temp column, 3 to check data type, 4 to convert the data to a dictionary, 5 to convert data column to list,\n 6 to find the average of the list, 7 to find the maximum value of list, 8 to view an induvidual row, 9 to get element for row, 10 to convert monday temp to fahrenhiet, and 11 to exit: "))
         if choice == 1:
             CSVFileManager.read()
         elif choice == 2:
@@ -68,6 +75,8 @@ if __name__ == "__main__":
         elif choice == 9:
             CSVFileManager.getElementForRow()
         elif choice == 10:
+            CSVFileManager.getDayTempConvertToCelsius()
+        elif choice == 11:
             print("program shutting down.......")
             break
         else:
