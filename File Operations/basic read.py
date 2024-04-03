@@ -27,3 +27,12 @@ def fileRead(fname, nlines):
                 break
             print(line, end="")
 fileRead("geek.txt", 1)
+
+#read line by line and store to list
+file_path = "geek.txt"
+line_list = []
+
+with open(file_path, "r") as file:
+    for line in file:
+        line_list.append(line)
+print(line_list)
