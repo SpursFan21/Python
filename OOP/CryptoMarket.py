@@ -88,18 +88,59 @@ class Transaction(CryptoMarket):
                 print("Invalid input, try again")
         else:
             print("Invalid input, try again")
+            
+    @staticmethod
+    def sell(wallet):
+        print("Enter which crypto you would like to sell")
+        choice = int(input("1 for crypto1, 2 for crypto2, 3 for crypto3, 4 for crypto4, or 5 for crypto5: "))
+        if choice in range(1, 6):
+            crypto_name = f'crypto{choice}'
+            crypto_value = getattr(CryptoMarket, f'crypto_value{choice}')
+            print(f"Current price of {crypto_name} is {crypto_value}")
+
+            # Check how much of the cryptocurrency the user has in their wallet
+            if choice == 1:
+                available_quantity = wallet.u_crypto1
+            elif choice == 2:
+                available_quantity = wallet.u_crypto2
+            elif choice == 3:
+                available_quantity = wallet.u_crypto3
+            elif choice == 4:
+                available_quantity = wallet.u_crypto4
+            elif choice == 5:
+                available_quantity = wallet.u_crypto5
+
+            print(f"You have {available_quantity} units of {crypto_name} available for sale")
+
+            # Allow the user to specify how much of the cryptocurrency they want to sell
+            sell_quantity = float(input(f"Enter the quantity of {crypto_name} you want to sell: "))
+            if sell_quantity > available_quantity:
+                print("You don't have enough units to sell.")
+                return
+
+            # Calculate the total sale amount
+            total_sale_amount = sell_quantity * crypto_value
+            print(f"You have sold {sell_quantity} units of {crypto_name} for {total_sale_amount}.")
+
+            # Update their user wallet
+            wallet.updateBalance(choice, -sell_quantity)  # Subtract sold quantity from wallet
+
+        else:
+            print("Invalid input, try again")   
 
 
 if __name__ == "__main__":
     wallet = YourWallet()  # Instantiate YourWallet outside the loop
     while True:
         print("Welcome to Duncan's CryptoMarket")
-        choice3 = int(input("Enter 1 to make a Purchase, 2 to View Your Wallet, or 3 to Exit: "))
+        choice3 = int(input("Enter 1 to make a Purchase, 2 to View Your Wallet, 3 Sell your crypto, or 4 to Exit: "))
         if choice3 == 1:
             Transaction.purchase(wallet)  # Pass the wallet instance to purchase method
         elif choice3 == 2:
             wallet.viewWallet()  # Use the existing wallet instance to view the wallet
-        elif choice3 == 3:
+        elif choice3 ==3:
+            Transaction.sell(wallet)
+        elif choice3 == 4:
             break
         else:
             print("Invalid input try again!")
