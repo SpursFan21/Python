@@ -70,8 +70,7 @@ class YourWallet(CryptoMarket):
 
 class Transaction(CryptoMarket):
     @staticmethod
-    def purchase():
-        wallet = YourWallet()  # Instantiate YourWallet class
+    def purchase(wallet):  # Accept wallet instance as argument
         print("Enter which crypto you would like to buy")
         choice = int(input("1 for crypto1, 2 for crypto2, 3 for crypto3, 4 for crypto4, or 5 for crypto5: "))
         if choice in range(1, 6):
@@ -82,7 +81,7 @@ class Transaction(CryptoMarket):
             if choice2 == 1:
                 quantity = float(input("Enter the quantity you wish to buy: "))
                 print(f"You have purchased {quantity} units of {crypto_name}")
-                wallet.updateBalance(choice, quantity)  # Update balance in wallet
+                wallet.updateBalance(choice, quantity)  # Update balance in existing wallet instance
             elif choice2 == 2:
                 return
             else:
@@ -91,15 +90,16 @@ class Transaction(CryptoMarket):
             print("Invalid input, try again")
 
 
-if __name__ == "__Main__":
+if __name__ == "__main__":
+    wallet = YourWallet()  # Instantiate YourWallet outside the loop
     while True:
         print("Welcome to Duncan's CryptoMarket")
-        choice3 = int(input("Enter 1 to make a Purchase, 2 to View Your Wallet, or 3 to Exit :"))
+        choice3 = int(input("Enter 1 to make a Purchase, 2 to View Your Wallet, or 3 to Exit: "))
         if choice3 == 1:
-            Transaction.purchase()
+            Transaction.purchase(wallet)  # Pass the wallet instance to purchase method
         elif choice3 == 2:
-            YourWallet.viewWallet()
+            wallet.viewWallet()  # Use the existing wallet instance to view the wallet
         elif choice3 == 3:
             break
         else:
-            print("Invalid input try again!")  
+            print("Invalid input try again!")
