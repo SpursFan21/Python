@@ -1,6 +1,7 @@
 class CryptoMarket:
-    crypto1 = 2250.10  # amount of crypto1 available for purchase in marketplace
-    crypto_value1 = 22.70  # current price of crypto1
+    # Define available amount and current value for each cryptocurrency
+    crypto1 = 2250.10  
+    crypto_value1 = 22.70  
     crypto2 = 1337.0
     crypto_value2 = 10.14
     crypto3 = 10288.32
@@ -12,6 +13,7 @@ class CryptoMarket:
 
     @classmethod
     def getCryptoValues(cls):
+        # Return a tuple of current values for all cryptocurrencies
         return (
             cls.crypto_value1,
             cls.crypto_value2,
@@ -24,6 +26,7 @@ class CryptoMarket:
 class YourWallet(CryptoMarket):
     def __init__(self, u_crypto1=0, u_crypto2=0, u_crypto3=0, u_crypto4=0, u_crypto5=0):
         super().__init__()
+        # Initialize user's cryptocurrency balances
         self.u_crypto1 = u_crypto1
         self.u_crypto2 = u_crypto2
         self.u_crypto3 = u_crypto3
@@ -31,6 +34,7 @@ class YourWallet(CryptoMarket):
         self.u_crypto5 = u_crypto5
 
     def getValue(self):
+        # Calculate the total value of each cryptocurrency in the wallet
         crypto_values = self.getCryptoValues()
         return (
             self.u_crypto1 * crypto_values[0],
@@ -41,6 +45,7 @@ class YourWallet(CryptoMarket):
         )
 
     def viewWallet(self):
+        # Display the balances and values of each cryptocurrency in the wallet
         val1, val2, val3, val4, val5 = self.getValue()
         print(f"crypto1 {self.u_crypto1}")
         print(f"Valued at {val1}")
@@ -54,6 +59,7 @@ class YourWallet(CryptoMarket):
         print(f"Valued at {val5}")
 
     def updateBalance(self, choice, quantity):
+        # Update the balance of the specified cryptocurrency in the wallet
         if choice == 1:
             self.u_crypto1 += quantity
         elif choice == 2:
@@ -70,7 +76,8 @@ class YourWallet(CryptoMarket):
 
 class Transaction(CryptoMarket):
     @staticmethod
-    def purchase(wallet):  # Accept wallet instance as argument
+    def purchase(wallet):  
+        # Function to handle purchasing cryptocurrency
         print("Enter which crypto you would like to buy")
         choice = int(input("1 for crypto1, 2 for crypto2, 3 for crypto3, 4 for crypto4, or 5 for crypto5: "))
         if choice in range(1, 6):
@@ -91,6 +98,7 @@ class Transaction(CryptoMarket):
             
     @staticmethod
     def sell(wallet):
+        # Function to handle selling cryptocurrency
         print("Enter which crypto you would like to sell")
         choice = int(input("1 for crypto1, 2 for crypto2, 3 for crypto3, 4 for crypto4, or 5 for crypto5: "))
         if choice in range(1, 6):
@@ -139,7 +147,7 @@ if __name__ == "__main__":
         elif choice3 == 2:
             wallet.viewWallet()  # Use the existing wallet instance to view the wallet
         elif choice3 ==3:
-            Transaction.sell(wallet)
+            Transaction.sell(wallet) #Pass the wallet instance to sell method
         elif choice3 == 4:
             break
         else:
