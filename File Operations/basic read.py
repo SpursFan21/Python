@@ -17,3 +17,13 @@ file.close()  # It's good practice to close the file after you're done with it.
 file = open("geek.txt", "r")
 print(file.read(3)) # this only reads a certain amount of characters from the left
 
+#read specific lines method 4
+
+def fileRead(fname, nlines):
+    with open(fname) as file:
+        for i in range(nlines):
+            line = file.readline()
+            if not  line:
+                break
+            print(line, end="")
+fileRead("geek.txt", 1)
