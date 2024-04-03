@@ -21,7 +21,7 @@ class Inventory:
     @staticmethod
     def get_books():
         """
-        Get a list of the libraries inventory.
+        Get a list of the library's inventory.
         """
         return [
             ("Black Knight", "Author A"),
@@ -37,7 +37,7 @@ class LibrarySystem:
 
     def preload_books(self):
         """
-        Preload books into the library system from the PreloadedBooks class.
+        Preload books into the library system from the Inventory class.
         """
         inventory = Inventory.get_books()
         for book_info in inventory:
@@ -55,22 +55,68 @@ class LibrarySystem:
             print("Books available in the library:")
             for idx, book in enumerate(self.books, start=1):
                 print(f"{idx}. Title: {book.title}, Author: {book.author}, Availability: {'Available' if book.availability else 'Not Available'}")
-                
+
+    def borrow_book(self, patron_name, book_title):
+        """
+        Allow a patron to borrow a book from the library.
+        """
+        for book in self.books:
+            if book.title.lower() == book_title.lower() and book.availability:
+                book.availability = False  # Mark the book as not available
+                patron = self.find_patron(patron_name)
+                if patron:
+                    patron.books_borrowed.append(book)
+                    print(f"{patron_name} has borrowed '{book_title}'.")
+                    return True
+                else:
+                    print(f"Patron '{patron_name}' not found.")
+                    return False
+        print(f"Book '{book_title}' not found or not available.")
+        return False
+
+    def return_book(self, patron_name, book_title):
+        """
+        Allow a patron to return a borrowed book to the library.
+        """
+        patron = self.find_patron(patron_name)
+        if patron:
+            for book in patron.books_borrowed:
+                if book.title.lower() == book_title.lower():
+                    book.availability = True  # Mark the book as available
+                    patron.books_borrowed.remove(book)
+                    print(f"{patron_name} has returned '{book_title}'.")
+                    return True
+            print(f"Book '{book_title}' not borrowed by {patron_name}.")
+            return False
+        else:
+            print(f"Patron '{patron_name}' not found.")
+            return False
+
+    def find_patron(self, patron_name):
+        """
+        Find a patron by name.
+        """
+        for patron in self.patrons:
+            if patron.name.lower() == patron_name.lower():
+                return patron
+        return None
+
 class Patron:
     def __init__(self, name):
         self.name = name
         self.books_borrowed = []
-        
-class Transaction:
-    def __init__(self, book, patron, transaction_date):
-        self.book = book
-        self.patron = patron
-        self.transaction_date = transaction_date
-        
-
 
 # Initialize the library system
 library = LibrarySystem()
 
 # Display the books in the library
+library.display_books()
+
+# Perform transactions (borrowing and returning books)
+library.borrow_book("John", "The Lord of The Rings")
+library.borrow_book("Alice", "Star Wars")
+library.return_book("John", "The Lord of The Rings")
+library.borrow_book("Bob", "My ABC's")
+
+# Display the updated list of books and their availability
 library.display_books()
