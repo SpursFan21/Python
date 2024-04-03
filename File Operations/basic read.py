@@ -4,7 +4,7 @@ with open("geek.txt", "r") as file:
     for each in file:
         print(each)
         
-#read method 2
+# with read method 2
         
 file = open("geek.txt", "r")
 for each in file:
